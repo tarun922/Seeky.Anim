@@ -1,0 +1,22 @@
+import style from "../anime.module.css"
+import Eps from "./eps"
+
+
+const Episodes = ({ episodes }) => {
+  if (episodes == null) {
+    return (
+      <div> blank </div>
+    )
+  }
+  return (
+    <div className={style["episods-grid"]}>
+      {episodes.map((ep) => {
+          return (
+            <Eps ep = {ep} />
+        ) })}
+    </div>
+
+  )
+}
+
+export default Episodes

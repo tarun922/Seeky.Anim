@@ -1,0 +1,472 @@
+/* anime.module.css : detail page top section */
+
+/* ---------- Page ---------- */
+.detail {
+  position: relative;
+  min-height: 100vh;
+  padding: clamp(16px, 3vw, 40px);
+  padding-left: calc(76px + clamp(12px, 2vw, 28px));   /* leftbar ke liye jagah */
+  background: #0d0d12;
+  color: #e8e8ef;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  overflow-x: hidden;                                   /* glow se horizontal scroll na aaye */
+  animation: detailIn 0.45s ease both;
+}
+
+@keyframes detailIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------- Top section ---------- */
+.top {
+  position: relative;
+  isolation: isolate;
+  display: block;
+  height: clamp(380px, 64vh, 600px);
+  margin: clamp(8px, 2vw, 24px) auto 0;
+  max-width: 1500px;
+  border-radius: 20px;
+}
+
+/* ---------- Ambient glow (banner ki blurred copy) ---------- */
+.glow {
+  position: absolute;
+  inset: -14% -7%;
+  width: 114%;
+  height: 128%;
+  object-fit: cover;
+  z-index: -1;
+  pointer-events: none;
+  filter: blur(70px) saturate(1.9) brightness(1.1);
+  opacity: 0.55;
+  border-radius: 40px;
+  animation: breathe 6s ease-in-out infinite alternate;
+}
+
+@keyframes breathe {
+  from { opacity: 0.38; transform: scale(1); }
+  to   { opacity: 0.68; transform: scale(1.05); }
+}
+
+/* ---------- Banner ---------- */
+.banner {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: 20px;
+  background: #1c1c27;                                  /* image na aaye to khaali na dikhe */
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.09),
+    0 30px 80px rgba(0, 0, 0, 0.6);
+}
+
+.banner img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+  filter: brightness(0.85) saturate(1.15);
+  transform: scale(1.04);
+  transition: transform 8s ease;
+}
+
+.top:hover .banner img {
+  transform: scale(1.1);                                /* halka slow zoom */
+}
+
+/* ---------- Overlay (text padhne layak rakhne ke liye) ---------- */
+.overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: 20px;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(13, 13, 18, 0.92) 0%,
+      rgba(13, 13, 18, 0.6) 38%,
+      rgba(13, 13, 18, 0.1) 75%,
+      rgba(13, 13, 18, 0) 100%
+    ),
+    linear-gradient(
+      to top,
+      rgba(13, 13, 18, 0.95) 0%,
+      rgba(13, 13, 18, 0) 50%
+    );
+}
+
+/* ---------- Info (bottom-left) ---------- */
+.info {
+  position: absolute;
+  left: clamp(20px, 3.5vw, 52px);
+  bottom: clamp(22px, 3.5vw, 48px);
+  z-index: 3;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  width: min(52%, 560px);
+}
+
+.B-name {
+  flex: 0 0 100%;
+  font-size: clamp(1.7rem, 4.2vw, 3.2rem);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: 0.3px;
+  color: #fff;
+  text-shadow: 0 3px 16px rgba(0, 0, 0, 0.75);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  overflow-wrap: anywhere;
+}
+
+/* ---------- Badges ---------- */
+.B-rating,
+.B-ep-count {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 14px;
+  font-size: clamp(0.74rem, 1.2vw, 0.88rem);
+  font-weight: 600;
+  white-space: nowrap;
+  border-radius: 999px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.B-rating {
+  color: #ffd36b;
+  background: rgba(255, 196, 70, 0.16);
+  border: 1px solid rgba(255, 196, 70, 0.42);
+}
+
+.B-rating::before {
+  content: "★ ";
+  margin-right: 4px;
+}
+
+.B-ep-count {
+  color: #ff8a8a;
+  background: rgba(255, 107, 107, 0.16);
+  border: 1px solid rgba(255, 107, 107, 0.42);
+}
+
+.B-ep-count::after {
+  content: " Episodes";
+  margin-left: 4px;
+}
+
+/* ---------- Description (bottom-right glass panel) ---------- */
+.B-discription {
+  position: absolute;
+  right: clamp(20px, 3.5vw, 52px);
+  bottom: clamp(22px, 3.5vw, 48px);
+  z-index: 3;
+  width: min(38%, 460px);
+  margin: 0;
+  padding: 16px 18px;
+
+  font-size: clamp(0.8rem, 1.2vw, 0.95rem);
+  line-height: 1.6;
+  color: #dcdce8;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.6);
+
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 16px;
+  backdrop-filter: blur(14px) saturate(150%);
+  -webkit-backdrop-filter: blur(14px) saturate(150%);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ---------- Tablet ---------- */
+@media (max-width: 900px) {
+  .info {
+    width: min(60%, 460px);
+  }
+
+  .B-discription {
+    width: min(36%, 340px);
+    -webkit-line-clamp: 4;
+  }
+}
+
+/* ---------- Mobile ---------- */
+@media (max-width: 640px) {
+  .detail {
+    padding: 14px;
+    padding-left: calc(56px + 12px);                   /* leftbar 56px */
+  }
+
+  .top {
+    height: auto;
+    min-height: 460px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 12px;
+    padding: 18px;
+  }
+
+  .overlay {
+    background: linear-gradient(
+      to top,
+      rgba(13, 13, 18, 0.97) 0%,
+      rgba(13, 13, 18, 0.8) 50%,
+      rgba(13, 13, 18, 0.15) 100%
+    );
+  }
+
+  .info,
+  .B-discription {
+    position: relative;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    width: 100%;
+  }
+
+  .B-discription {
+    -webkit-line-clamp: 5;
+  }
+}
+
+/* animation band karni ho to (accessibility) */
+@media (prefers-reduced-motion: reduce) {
+  .glow,
+  .banner img {
+    animation: none;
+    transition: none;
+  }
+}
+/* ---------- Loading screen ---------- */
+.loader {
+  position: relative;
+  isolation: isolate;
+  min-height: 70vh;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 22px;
+  overflow: hidden;
+  border-radius: 20px;
+  animation: loaderIn 0.4s ease both;
+}
+
+@keyframes loaderIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* peeche speed lines (anime "whoosh" feel) */
+.loader::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      transparent 0 46px,
+      rgba(255, 255, 255, 0.035) 46px 48px,
+      transparent 48px 120px
+    );
+  -webkit-mask-image: radial-gradient(circle at center, #000 0%, transparent 70%);
+  mask-image: radial-gradient(circle at center, #000 0%, transparent 70%);
+  animation: lines 2.4s linear infinite;
+}
+
+@keyframes lines {
+  from { background-position: 0 0; }
+  to   { background-position: 120px 0; }
+}
+
+/* ---------- Shuriken ---------- */
+.shuriken {
+  position: relative;
+  width: clamp(84px, 14vw, 120px);
+  aspect-ratio: 1 / 1;
+  filter:
+    drop-shadow(0 0 10px rgba(255, 78, 106, 0.75))
+    drop-shadow(0 0 28px rgba(255, 78, 106, 0.4));
+  animation:
+    spin 1.1s cubic-bezier(0.6, 0, 0.4, 1) infinite,
+    glow 2.2s ease-in-out infinite alternate;
+}
+
+/* 4 point wala star */
+.shuriken::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #f2f2f8 0%, #8f93aa 45%, #4b4e66 100%);
+  clip-path: polygon(
+    50% 0%, 61% 39%, 100% 50%, 61% 61%,
+    50% 100%, 39% 61%, 0% 50%, 39% 39%
+  );
+}
+
+/* beech ka chhed */
+.shuriken::after {
+  content: "";
+  position: absolute;
+  inset: 40%;
+  border-radius: 50%;
+  background: #0d0d12;
+  box-shadow: inset 0 0 0 3px rgba(255, 255, 255, 0.35);
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes glow {
+  from {
+    filter:
+      drop-shadow(0 0 6px rgba(255, 78, 106, 0.5))
+      drop-shadow(0 0 18px rgba(255, 78, 106, 0.25));
+  }
+  to {
+    filter:
+      drop-shadow(0 0 14px rgba(255, 123, 78, 0.95))
+      drop-shadow(0 0 38px rgba(255, 78, 106, 0.55));
+  }
+}
+
+/* ---------- Text ---------- */
+.loaderText {
+  margin: 0;
+  font-size: clamp(0.85rem, 1.6vw, 1.05rem);
+  font-weight: 700;
+  letter-spacing: 0.45em;
+  text-transform: uppercase;
+  color: #e8e8ef;
+  text-shadow: 0 0 14px rgba(255, 78, 106, 0.6);
+}
+
+/* animated "..." */
+.loaderText::after {
+  content: "...";
+  display: inline-block;
+  width: 0;
+  overflow: hidden;
+  vertical-align: bottom;
+  letter-spacing: 0.2em;
+  animation: dots 1.4s steps(4) infinite;
+}
+
+@keyframes dots {
+  to { width: 1.2em; }
+}
+
+/* ---------- Progress bar ---------- */
+.loaderBar {
+  position: relative;
+  width: clamp(150px, 22vw, 240px);
+  height: 4px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.loaderBar::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40%;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, transparent, #ff4e6a, #ff7b4e, transparent);
+  box-shadow: 0 0 12px rgba(255, 78, 106, 0.8);
+  animation: slide 1.3s ease-in-out infinite;
+}
+
+@keyframes slide {
+  from { transform: translateX(-100%); }
+  to   { transform: translateX(250%); }
+}
+
+/* ---------- Sakura petals ---------- */
+.petals {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.petal {
+  position: absolute;
+  top: -20px;
+  width: 12px;
+  height: 12px;
+  background: linear-gradient(135deg, #ffd1dc, #ff8fab);
+  border-radius: 150% 0 150% 0;
+  opacity: 0;
+  animation: fall 7s linear infinite;
+}
+
+.petal:nth-child(1) { left: 8%;  animation-delay: 0s;   animation-duration: 7s; }
+.petal:nth-child(2) { left: 20%; animation-delay: 1.8s; animation-duration: 8s;   width: 9px;  height: 9px; }
+.petal:nth-child(3) { left: 33%; animation-delay: 3.2s; animation-duration: 6.5s; width: 15px; height: 15px; }
+.petal:nth-child(4) { left: 46%; animation-delay: 0.9s; animation-duration: 7.5s; }
+.petal:nth-child(5) { left: 58%; animation-delay: 4.1s; animation-duration: 8.5s; width: 10px; height: 10px; }
+.petal:nth-child(6) { left: 70%; animation-delay: 2.4s; animation-duration: 6.8s; width: 14px; height: 14px; }
+.petal:nth-child(7) { left: 82%; animation-delay: 5s;   animation-duration: 7.2s; }
+.petal:nth-child(8) { left: 92%; animation-delay: 1.2s; animation-duration: 8s;   width: 9px;  height: 9px; }
+
+@keyframes fall {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) rotate(0deg);
+  }
+  10% {
+    opacity: 0.9;
+  }
+  50% {
+    transform: translate(40px, 38vh) rotate(260deg);
+  }
+  90% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-10px, 78vh) rotate(540deg);
+  }
+}
+
+/* ---------- Mobile ---------- */
+@media (max-width: 640px) {
+  .loader {
+    min-height: 60vh;
+  }
+
+  .loaderText {
+    letter-spacing: 0.3em;
+  }
+}
+
+/* animation kam chahiye wale users ke liye */
+@media (prefers-reduced-motion: reduce) {
+  .shuriken,
+  .petal,
+  .loader::before {
+    animation: none;
+  }
+
+  .loaderBar::after {
+    animation-duration: 3s;
+  }
+}

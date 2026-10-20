@@ -7,7 +7,7 @@ const AnimeCard = (prop) => {
       <div className={style["cover-overlay"]} />
 
       <div className={style.banner}>
-        <img className={style["banner-img"]} src={prop.bannerImage} alt={prop.title.english} />
+        <img className={style["banner-img"]} src={prop.bannerImage || prop.coverImage?.large} alt={prop.title.english} />
         <div className={style["banner-blur"]} />
       </div>
 
