@@ -1,10 +1,16 @@
 
-import Greet from './components/greet'
-import Card from './components/feed/Card'
+import data from "./raw"
+import Card from './components/feed/Acard/Card'
+import Carsol_sp from "./components/feed/Carsol/carsol_support"
+import Cleaner from "./components/feed/cleaner/cleaner"
+import LeftBar from "./components/feed/leftsidebar/left"
+
 const App = () => {
   return (
     <>
-      {Card()}
+      {LeftBar()}
+      {Carsol_sp(Cleaner(data)[1])}
+      {Card(data)}
     </>
   )
 }
