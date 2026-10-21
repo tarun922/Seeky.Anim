@@ -30,6 +30,7 @@ const App = () => {
           <Route path="/anime/:id" element={<AnimeDetails />} />
           <Route path="/stream/:id/:ep" element={<Stream />} />
           <Route path="/anime-ids" element={<AnimeIds />} />
+           <Route path="*" element={<RightBar />} />
         </Routes>
       </div>
     </Screen>
