@@ -8,6 +8,8 @@ import Settings from './components/rightsidebar/user/user';
 import RightBar from './components/rightsidebar/RightBar';
 import LeftBar from './components/leftsidebar/left';
 import AnimeDetails from './components/anime/animeDetails';
+import Stream from './components/stream/stream';
+import AnimeIds from './components/AnimeIds';
 
 const App = () => {
   return (
@@ -26,6 +28,8 @@ const App = () => {
           <Route path="/playlist" element={<Playlist />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/anime/:id" element={<AnimeDetails />} />
+          <Route path="/stream/:id/:ep" element={<Stream />} />
+          <Route path="/anime-ids" element={<AnimeIds />} />
         </Routes>
       </div>
     </Screen>

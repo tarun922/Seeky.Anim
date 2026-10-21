@@ -470,3 +470,256 @@
     animation-duration: 3s;
   }
 }
+/* ---------- Episodes grid ---------- */
+.episods-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr));
+  gap: clamp(14px, 2vw, 24px);
+  max-width: 1500px;
+  margin: clamp(24px, 4vw, 48px) auto 0;
+}
+
+/* ---------- Episode card ---------- */
+.episode {
+  position: relative;
+  container-type: inline-size;          /* cqw units ke liye */
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: #16161d;
+  border: 1px solid #262633;
+  border-radius: 14px;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.4);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.episode:hover {
+  transform: translateY(-5px);
+  border-color: rgba(255, 107, 107, 0.45);
+  box-shadow:
+    0 16px 34px rgba(0, 0, 0, 0.6),
+    0 0 26px rgba(255, 78, 106, 0.18);
+}
+
+/* ---------- Thumbnail ---------- */
+.episode-img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  background: #1c1c27;                  /* image na aaye to dark box dikhe */
+  color: transparent;                   /* toote image ka alt text chhupa do */
+  font-size: 0;
+  transition: transform 0.5s ease, filter 0.3s ease;
+}
+
+.episode:hover .episode-img {
+  transform: scale(1.06);
+  filter: brightness(0.55);
+}
+
+/* thumbnail ka zoom card ke andar hi rahe */
+.episode::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  aspect-ratio: 16 / 9;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(to top, rgba(22, 22, 29, 0.85) 0%, transparent 45%);
+}
+
+/* ---------- Episode number badge ---------- */
+.epnum {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 3;
+  min-width: 34px;
+  padding: 4px 11px;
+  text-align: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #fff;
+  background: rgba(13, 13, 18, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 999px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.epnum::before {
+  content: "EP ";
+  opacity: 0.7;
+  font-weight: 600;
+}
+
+/* ---------- Episode name ---------- */
+.epname {
+  padding: 12px 14px 14px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  line-height: 1.35;
+  color: #e8e8ef;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: calc(2 * 1.35em + 26px);  /* sab cards ki height barabar rahe */
+}
+
+/* ---------- Buttons (common) ---------- */
+.play,
+.download,
+.add-playlist {
+  position: absolute;
+  z-index: 4;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  color: #fff;
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  background: rgba(13, 13, 18, 0.55);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  opacity: 0;
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.play svg,
+.download svg,
+.add-playlist svg {
+  display: block;
+  pointer-events: none;
+}
+
+.episode:hover .play,
+.episode:hover .download,
+.episode:hover .add-playlist,
+.play:focus-visible,
+.download:focus-visible,
+.add-playlist:focus-visible {
+  opacity: 1;
+}
+
+/* ---------- Play (thumbnail ke beech mein) ---------- */
+.play {
+  top: calc(56.25cqw / 2);              /* 16:9 thumbnail ka center */
+  left: 50%;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0.8);
+  background: linear-gradient(135deg, #ff4e6a, #ff7b4e);
+  border-color: transparent;
+  box-shadow: 0 8px 24px rgba(255, 78, 106, 0.5);
+}
+
+.play svg {
+  width: 24px;
+  height: 24px;
+  margin-left: 3px;                     /* triangle optically center dikhe */
+  fill: #fff;
+}
+
+.episode:hover .play {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.play:hover {
+  transform: translate(-50%, -50%) scale(1.12);
+  box-shadow: 0 10px 30px rgba(255, 78, 106, 0.75);
+}
+
+/* ---------- Download aur playlist (thumbnail ke top-right) ---------- */
+.download,
+.add-playlist {
+  top: 10px;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  transform: translateY(-6px);
+}
+
+.add-playlist {
+  right: 10px;
+}
+
+.download {
+  right: 52px;                          /* playlist button ke bagal mein */
+}
+
+.download svg,
+.add-playlist svg {
+  width: 18px;
+  height: 18px;
+}
+
+.episode:hover .download,
+.episode:hover .add-playlist {
+  transform: translateY(0);
+}
+
+.download:hover,
+.add-playlist:hover {
+  background: rgba(255, 255, 255, 0.22);
+  box-shadow: 0 0 14px rgba(255, 255, 255, 0.25);
+}
+
+.download:active,
+.add-playlist:active,
+.play:active {
+  filter: brightness(0.9);
+}
+
+/* ---------- Touch devices (hover nahi hota) ---------- */
+@media (hover: none) {
+  .play,
+  .download,
+  .add-playlist {
+    opacity: 1;
+  }
+
+  .play {
+    transform: translate(-50%, -50%) scale(0.9);
+  }
+
+  .download,
+  .add-playlist {
+    transform: translateY(0);
+  }
+
+  .episode:hover .episode-img {
+    transform: none;
+    filter: none;
+  }
+}
+
+/* ---------- Mobile ---------- */
+@media (max-width: 640px) {
+  .episods-grid {
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr));
+    gap: 12px;
+  }
+
+  .epname {
+    font-size: 0.84rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .episode,
+  .episode-img,
+  .play,
+  .download,
+  .add-playlist {
+    transition: none;
+  }
+}

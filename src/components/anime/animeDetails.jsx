@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom"
 import { get_info } from "../forker/getinfo"
 import AnimeTop from "./helper/animeTop"
 import style from "./anime.module.css"
+import Episodes from "./helper/episods"
 
 const AnimeDetails = () => {
   const parm = useParams()
@@ -40,6 +41,7 @@ const AnimeDetails = () => {
   return (
     <div className={style["detail"]} >
       <AnimeTop {...data} />
+      <Episodes {...data} />
     </div>
   )
 

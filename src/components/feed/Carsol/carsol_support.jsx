@@ -1,8 +1,12 @@
 
+import { useNavigate } from "react-router-dom";
 import style from "./carsol.module.css";
 
 const Carsol_sp = (prop) => {
-
+  const navigate = useNavigate()
+  const work = (id) => {
+    navigate(`/anime/${id}`)
+  }
   const description = prop.description
 
 
@@ -62,6 +66,7 @@ const Carsol_sp = (prop) => {
         <button
           type="button"
           className={style["play"]}
+          onClick={() => { work(prop.id)}}
         >
           Play
         </button>

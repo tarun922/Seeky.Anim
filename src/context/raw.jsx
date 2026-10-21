@@ -1,5 +1,7 @@
 import { get_home } from "../components/forker/gethome";
 
-const data =await  get_home(70)
+const data = await get_home(1);
 
-export default data
+console.log("HOME DATA:", data);
+
+export default data;
