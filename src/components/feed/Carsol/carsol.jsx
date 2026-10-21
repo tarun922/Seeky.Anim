@@ -1,29 +1,39 @@
-import { useState } from "react";
+
+import { useState, useEffect } from "react";
 import Carsol_sp from "./carsol_support";
 import Cleaner from "../cleaner/cleaner";
+import style from "./carsol.module.css"
+const Carsol = (prop) => {
+  const [counter, setcounter] = useState(0);
+  const data = Cleaner(prop);
 
-const Carsol = (prop)=>{
-  const [counter, setcounter] = useState(0)
-  const data = Cleaner(prop)
-  const id = setInterval(() => {
-    if (counter < data.length) {
-      setcounter(counter + 1)
-    } else if (counter >= data.length) {
-      setcounter(0)
-    }
-  }, 3000);
+  useEffect(() => {
+    if (!data?.length) return;
+
+    const id = setInterval(() => {
+
+
+      setcounter((prev) => (prev + 1) % data.length);
+    }, 5000);
+
+    return () => clearInterval(id);
+  }, [data?.length]);
+
+  if (!data?.length) return <div>No anime data</div>;
+
+  const currentIndex = counter % data.length;
 
   return (
-    <div className="mainCarsol">
-      <div className="Current">
-        {Carsol_sp(data[counter])}
+    <div className={style["mainCarsol"]}>
+      <div className={style["Current"]} key={currentIndex}>
+        <Carsol_sp {...data[currentIndex]} />
       </div>
 
-      <div className="counter">
-        {counter}
+      <div className={style["counter"]}>
+        {currentIndex + 1} / {data.length}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Carsol
+export default Carsol;

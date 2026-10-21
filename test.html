@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HLS Video Player</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      background: #111;
+      color: white;
+      font-family: Arial, sans-serif;
+    }
+
+    .player {
+      width: min(900px, 95vw);
+    }
+
+    video {
+      width: 100%;
+      background: black;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="player">
+    <h3>HLS Video Player</h3>
+
+    <video id="video" controls autoplay playsinline crossorigin="anonymous">
+      <track
+        src="http://127.0.0.1:8232/hianime-proxy/file?u=aHR0cHM6Ly9obHMuZHJhbWFob3QudG9wL3Yvc2N4cWljeS9oYzB5OHYyaWh6L3A0OHlkcjFod2svNHk4NnB1Y2o1NmFtN3Avc3Vicy84cmViZWJzYjVzajg0ODR1LnZ0dA&r=aHR0cHM6Ly96b2tvYW5pbWUudmlkZW8v"
+        kind="subtitles"
+        label="English"
+        srclang="en"
+        default
+      />
+    </video>
+
+  </div>
+
+  <script>
+    const video = document.getElementById("video");
+
+    const url = "http://127.0.0.1:8232/hianime-proxy/playlist?u=aHR0cHM6Ly9obHMuZHJhbWFob3QudG9wL3Avc2N4cWljeS9oYzB5OHYyaWh6L3A0OHlkcjFod2svNHk4NnB1Y2o1NmFtN3AvODAwL2luZGV4Lm0zdTg&r=aHR0cHM6Ly96b2tvYW5pbWUudmlkZW8v";
+
+    if (Hls.isSupported()) {
+      const hls = new Hls();
+      hls.loadSource(url);
+      hls.attachMedia(video);
+
+      hls.on(Hls.Events.ERROR, (_, data) => {
+        if (data.fatal) {
+          console.error("HLS error:", data);
+        }
+      });
+    } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
+      video.src = url;
+    } else {
+      alert("HLS playback is not supported in this browser.");
+    }
+  </script>
+</body>
+</html>
