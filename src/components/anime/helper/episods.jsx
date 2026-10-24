@@ -2,7 +2,7 @@ import style from "../anime.module.css"
 import Eps from "./eps"
 
 
-const Episodes = ({ episodes }) => {
+const Episodes = ({ episodes , id }) => {
   if (episodes == null) {
     return (
       <div> blank </div>
@@ -10,9 +10,9 @@ const Episodes = ({ episodes }) => {
   }
   return (
     <div className={style["episods-grid"]}>
-      {episodes.map((ep) => {
+      {episodes.map((ep,i) => {
           return (
-            <Eps ep = {ep} />
+            <Eps ep = {ep} id = {id} epn={i+1}/>
         ) })}
     </div>
 

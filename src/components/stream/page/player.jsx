@@ -1,7 +1,22 @@
 import { useState } from "react"
 import style from "../stream.module.css"
 import LecturePlayer from "./prp"
-const Player = ({url , suburl , name ,epname, ep, dub  }) => {
+import { useEffect } from "react"
+import { get_info } from "../../forker/getinfo"
+import Episodes from "../../anime/helper/episods"
+const Player = ({ url, suburl, name, epname, ep, dub,id }) => {
+  const [data, setdata] = useState(null)
+  useEffect(() => {
+    let ignore = false
+
+    get_info(id).then((res) => {
+      if (!ignore) setdata(res)
+    })
+
+    return () => {
+      ignore = true
+    }
+  }, [id])
   const [murl, mseturl] = useState(null)
   useState(() => {
     if (!url) {
@@ -24,7 +39,8 @@ const Player = ({url , suburl , name ,epname, ep, dub  }) => {
 
       </div>
       <div className={style["player-main"]}  >
-        <LecturePlayer url = {url } suburl={suburl} />
+        <LecturePlayer url={url} suburl={suburl} />
+        <Episodes {...data} />
       </div>
     </div>
 
