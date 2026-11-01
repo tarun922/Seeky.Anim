@@ -2,7 +2,7 @@ import axios from "axios"
 
 const Get_S = async (id, ep, dubbed = false)=>{
   try {
-    const res = await axios.get(`http://127.0.0.1:8050/info`,{ params: { id: id } })
+    const res = await axios.get(`http://127.0.0.1:8000/info`,{ params: { id: id } })
     const zsh = res.data.data.title.english
     const epname = res.data.data.streamingEpisodes[ep-1].title
 
